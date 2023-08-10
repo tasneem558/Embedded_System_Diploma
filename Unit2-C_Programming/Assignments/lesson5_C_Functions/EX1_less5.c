@@ -1,52 +1,43 @@
-/*
- ============================================================================
- Name        : EX1_less5.c
- Author      : 
- Version     :
- Copyright   : Your copyright notice
- Description : Hello World in C, Ansi-style
- ============================================================================
- */
-
 #include <stdio.h>
-#include <stdlib.h>
 
-void get_prime_num(int n1,int n2);
-int main()
-{
-	int x,y;
-	printf("Enter two numbers(intervals): ");
-	fflush(stdin);
-	fflush(stdout);
-	scanf("%d %d",&x,&y);
-	printf("Prime numbers between %d and %d are: ",x,y);
-	get_prime_num(x,y);
+int isPrime(int n);
+void printPrimes(int start, int end);
+
+int main() {
+    int start, end;
+    printf("Enter the starting number: ");
+    scanf("%d", &start);
+    printf("Enter the ending number: ");
+    scanf("%d", &end);
+    printPrimes(start, end);
+    return 0;
 }
 
-void get_prime_num(int n1,int n2)
+int isPrime(int n) 
 {
-	int prime = 1;
-	if(n2>n1)
-	{
-		for(int i=n1+1;i<n2;i++)
-		{
-			for(int j=2;j< i/2 ;j++)
-			{
-				if(i%j ==0)
-				{
-					prime=0;
-				}
-			}
-			if(prime)
-			{
-				printf("%d ",i);
-			}
-		}
-	}
-	else
-	{
-		return;
-	}
-	get_prime_num(n1+1,n2);
+    if (n < 1) 
+    {
+        return 0;
+    }
+    for (int i = 2; i * i <= n; i++) 
+    {
+        if (n % i == 0)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
 
+void printPrimes(int start, int end)
+{
+    printf("Prime numbers between %d and %d are:\n", start, end);
+    for (int i = start; i <= end; i++)
+    {
+        if (isPrime(i)) 
+        {
+            printf("%d ", i);
+        }
+    }
+    printf("\n");
 }
