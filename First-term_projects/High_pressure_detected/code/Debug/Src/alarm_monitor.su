@@ -1,0 +1,4 @@
+alarm_monitor.c:19:6:High_pressure_detected	4	static
+alarm_monitor.c:24:1:ST_AM_alarm_off	8	static
+alarm_monitor.c:34:1:ST_AM_alarm_on	8	static
+alarm_monitor.c:45:1:ST_AM_waiting	8	static

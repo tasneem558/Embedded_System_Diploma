@@ -1,0 +1,851 @@
+
+pressue_controller.elf:     file format elf32-littlearm
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .isr_vector   00000130  08000000  08000000  00010000  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  1 .text         0000048c  08000130  08000130  00010130  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .rodata       00000000  080005bc  080005bc  00020004  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  3 .ARM.extab    00000000  080005bc  080005bc  00020004  2**0
+                  CONTENTS
+  4 .ARM          00000000  080005bc  080005bc  00020004  2**0
+                  CONTENTS
+  5 .preinit_array 00000000  080005bc  080005bc  00020004  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  6 .init_array   00000004  080005bc  080005bc  000105bc  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  7 .fini_array   00000004  080005c0  080005c0  000105c0  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  8 .data         00000004  20000000  080005c4  00020000  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  9 .bss          00000044  20000004  080005c8  00020004  2**2
+                  ALLOC
+ 10 ._user_heap_stack 00000600  20000048  080005c8  00020048  2**0
+                  ALLOC
+ 11 .ARM.attributes 00000029  00000000  00000000  00020004  2**0
+                  CONTENTS, READONLY
+ 12 .debug_info   000038b4  00000000  00000000  0002002d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_abbrev 00000ace  00000000  00000000  000238e1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_aranges 00000160  00000000  00000000  000243b0  2**3
+                  CONTENTS, READONLY, DEBUGGING
+ 15 .debug_ranges 000000f8  00000000  00000000  00024510  2**3
+                  CONTENTS, READONLY, DEBUGGING
+ 16 .debug_macro  000028b1  00000000  00000000  00024608  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 17 .debug_line   00002572  00000000  00000000  00026eb9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 18 .debug_str    000083f7  00000000  00000000  0002942b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 19 .comment      0000007b  00000000  00000000  00031822  2**0
+                  CONTENTS, READONLY
+ 20 .debug_frame  00000310  00000000  00000000  000318a0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+08000130 <__do_global_dtors_aux>:
+ 8000130:	b510      	push	{r4, lr}
+ 8000132:	4c05      	ldr	r4, [pc, #20]	; (8000148 <__do_global_dtors_aux+0x18>)
+ 8000134:	7823      	ldrb	r3, [r4, #0]
+ 8000136:	b933      	cbnz	r3, 8000146 <__do_global_dtors_aux+0x16>
+ 8000138:	4b04      	ldr	r3, [pc, #16]	; (800014c <__do_global_dtors_aux+0x1c>)
+ 800013a:	b113      	cbz	r3, 8000142 <__do_global_dtors_aux+0x12>
+ 800013c:	4804      	ldr	r0, [pc, #16]	; (8000150 <__do_global_dtors_aux+0x20>)
+ 800013e:	f3af 8000 	nop.w
+ 8000142:	2301      	movs	r3, #1
+ 8000144:	7023      	strb	r3, [r4, #0]
+ 8000146:	bd10      	pop	{r4, pc}
+ 8000148:	20000004 	.word	0x20000004
+ 800014c:	00000000 	.word	0x00000000
+ 8000150:	080005a4 	.word	0x080005a4
+
+08000154 <frame_dummy>:
+ 8000154:	b508      	push	{r3, lr}
+ 8000156:	4b03      	ldr	r3, [pc, #12]	; (8000164 <frame_dummy+0x10>)
+ 8000158:	b11b      	cbz	r3, 8000162 <frame_dummy+0xe>
+ 800015a:	4903      	ldr	r1, [pc, #12]	; (8000168 <frame_dummy+0x14>)
+ 800015c:	4803      	ldr	r0, [pc, #12]	; (800016c <frame_dummy+0x18>)
+ 800015e:	f3af 8000 	nop.w
+ 8000162:	bd08      	pop	{r3, pc}
+ 8000164:	00000000 	.word	0x00000000
+ 8000168:	20000008 	.word	0x20000008
+ 800016c:	080005a4 	.word	0x080005a4
+
+08000170 <init_AC>:
+//define state pointer to func
+void (*AC_state)();
+
+//define init func
+void init_AC()
+{
+ 8000170:	b580      	push	{r7, lr}
+ 8000172:	af00      	add	r7, sp, #0
+    //init alarm actuator driver
+    GPIO_INITIALIZATION();
+ 8000174:	f000 f936 	bl	80003e4 <GPIO_INITIALIZATION>
+}
+ 8000178:	bf00      	nop
+ 800017a:	bd80      	pop	{r7, pc}
+
+0800017c <start_alarm>:
+
+void start_alarm()
+{
+ 800017c:	b580      	push	{r7, lr}
+ 800017e:	af00      	add	r7, sp, #0
+    Set_Alarm_actuator(0);
+ 8000180:	2000      	movs	r0, #0
+ 8000182:	f000 f911 	bl	80003a8 <Set_Alarm_actuator>
+}
+ 8000186:	bf00      	nop
+ 8000188:	bd80      	pop	{r7, pc}
+
+0800018a <stop_alarm>:
+
+void stop_alarm()
+{
+ 800018a:	b580      	push	{r7, lr}
+ 800018c:	af00      	add	r7, sp, #0
+   Set_Alarm_actuator(1);
+ 800018e:	2001      	movs	r0, #1
+ 8000190:	f000 f90a 	bl	80003a8 <Set_Alarm_actuator>
+}
+ 8000194:	bf00      	nop
+ 8000196:	bd80      	pop	{r7, pc}
+
+08000198 <ST_AC_waiting>:
+
+//define states func
+STATE_define(AC_waiting)
+{
+ 8000198:	b580      	push	{r7, lr}
+ 800019a:	af00      	add	r7, sp, #0
+  if(alarm_flag ==0)
+ 800019c:	4b09      	ldr	r3, [pc, #36]	; (80001c4 <ST_AC_waiting+0x2c>)
+ 800019e:	681b      	ldr	r3, [r3, #0]
+ 80001a0:	2b00      	cmp	r3, #0
+ 80001a2:	d104      	bne.n	80001ae <ST_AC_waiting+0x16>
+  {
+    stop_alarm();
+ 80001a4:	f7ff fff1 	bl	800018a <stop_alarm>
+    AC_state =STATE(AC_alarm_off);
+ 80001a8:	4b07      	ldr	r3, [pc, #28]	; (80001c8 <ST_AC_waiting+0x30>)
+ 80001aa:	4a08      	ldr	r2, [pc, #32]	; (80001cc <ST_AC_waiting+0x34>)
+ 80001ac:	601a      	str	r2, [r3, #0]
+  }
+  if(alarm_flag ==1)
+ 80001ae:	4b05      	ldr	r3, [pc, #20]	; (80001c4 <ST_AC_waiting+0x2c>)
+ 80001b0:	681b      	ldr	r3, [r3, #0]
+ 80001b2:	2b01      	cmp	r3, #1
+ 80001b4:	d104      	bne.n	80001c0 <ST_AC_waiting+0x28>
+  {
+    start_alarm();
+ 80001b6:	f7ff ffe1 	bl	800017c <start_alarm>
+    AC_state =STATE(AC_alarm_on);
+ 80001ba:	4b03      	ldr	r3, [pc, #12]	; (80001c8 <ST_AC_waiting+0x30>)
+ 80001bc:	4a04      	ldr	r2, [pc, #16]	; (80001d0 <ST_AC_waiting+0x38>)
+ 80001be:	601a      	str	r2, [r3, #0]
+  }
+  
+}
+ 80001c0:	bf00      	nop
+ 80001c2:	bd80      	pop	{r7, pc}
+ 80001c4:	2000002c 	.word	0x2000002c
+ 80001c8:	20000034 	.word	0x20000034
+ 80001cc:	080001d5 	.word	0x080001d5
+ 80001d0:	080001f9 	.word	0x080001f9
+
+080001d4 <ST_AC_alarm_off>:
+STATE_define(AC_alarm_off)
+{
+ 80001d4:	b480      	push	{r7}
+ 80001d6:	af00      	add	r7, sp, #0
+  //STATE NAME
+  AC_state_id = AC_alarm_off;
+ 80001d8:	4b04      	ldr	r3, [pc, #16]	; (80001ec <ST_AC_alarm_off+0x18>)
+ 80001da:	2201      	movs	r2, #1
+ 80001dc:	701a      	strb	r2, [r3, #0]
+
+  AC_state = STATE(AC_waiting);
+ 80001de:	4b04      	ldr	r3, [pc, #16]	; (80001f0 <ST_AC_alarm_off+0x1c>)
+ 80001e0:	4a04      	ldr	r2, [pc, #16]	; (80001f4 <ST_AC_alarm_off+0x20>)
+ 80001e2:	601a      	str	r2, [r3, #0]
+}
+ 80001e4:	bf00      	nop
+ 80001e6:	46bd      	mov	sp, r7
+ 80001e8:	bc80      	pop	{r7}
+ 80001ea:	4770      	bx	lr
+ 80001ec:	20000040 	.word	0x20000040
+ 80001f0:	20000034 	.word	0x20000034
+ 80001f4:	08000199 	.word	0x08000199
+
+080001f8 <ST_AC_alarm_on>:
+STATE_define(AC_alarm_on)
+{
+ 80001f8:	b480      	push	{r7}
+ 80001fa:	af00      	add	r7, sp, #0
+    //STATE NAME
+    AC_state_id = AC_alarm_on;
+ 80001fc:	4b04      	ldr	r3, [pc, #16]	; (8000210 <ST_AC_alarm_on+0x18>)
+ 80001fe:	2202      	movs	r2, #2
+ 8000200:	701a      	strb	r2, [r3, #0]
+
+    AC_state = STATE(AC_waiting);
+ 8000202:	4b04      	ldr	r3, [pc, #16]	; (8000214 <ST_AC_alarm_on+0x1c>)
+ 8000204:	4a04      	ldr	r2, [pc, #16]	; (8000218 <ST_AC_alarm_on+0x20>)
+ 8000206:	601a      	str	r2, [r3, #0]
+}
+ 8000208:	bf00      	nop
+ 800020a:	46bd      	mov	sp, r7
+ 800020c:	bc80      	pop	{r7}
+ 800020e:	4770      	bx	lr
+ 8000210:	20000040 	.word	0x20000040
+ 8000214:	20000034 	.word	0x20000034
+ 8000218:	08000199 	.word	0x08000199
+
+0800021c <PS_init>:
+//pointer to func
+void (*ps_state)();
+
+//init pressure sensor
+void PS_init()
+{
+ 800021c:	b580      	push	{r7, lr}
+ 800021e:	af00      	add	r7, sp, #0
+   GPIO_INITIALIZATION();
+ 8000220:	f000 f8e0 	bl	80003e4 <GPIO_INITIALIZATION>
+}
+ 8000224:	bf00      	nop
+ 8000226:	bd80      	pop	{r7, pc}
+
+08000228 <ST_PS_Reading>:
+
+//states func
+STATE_define(PS_Reading)
+{
+ 8000228:	b580      	push	{r7, lr}
+ 800022a:	af00      	add	r7, sp, #0
+    //state name
+    PS_state_id = PS_Reading;
+ 800022c:	4b0a      	ldr	r3, [pc, #40]	; (8000258 <ST_PS_Reading+0x30>)
+ 800022e:	2200      	movs	r2, #0
+ 8000230:	701a      	strb	r2, [r3, #0]
+    //action
+    Pval = getPressureVal();
+ 8000232:	f000 f8ad 	bl	8000390 <getPressureVal>
+ 8000236:	4602      	mov	r2, r0
+ 8000238:	4b08      	ldr	r3, [pc, #32]	; (800025c <ST_PS_Reading+0x34>)
+ 800023a:	601a      	str	r2, [r3, #0]
+    setPressureVal(Pval);
+ 800023c:	4b07      	ldr	r3, [pc, #28]	; (800025c <ST_PS_Reading+0x34>)
+ 800023e:	681b      	ldr	r3, [r3, #0]
+ 8000240:	4618      	mov	r0, r3
+ 8000242:	f000 f937 	bl	80004b4 <setPressureVal>
+    pull_timer = 100000;
+ 8000246:	4b06      	ldr	r3, [pc, #24]	; (8000260 <ST_PS_Reading+0x38>)
+ 8000248:	4a06      	ldr	r2, [pc, #24]	; (8000264 <ST_PS_Reading+0x3c>)
+ 800024a:	601a      	str	r2, [r3, #0]
+    ps_state = STATE(PS_Waiting);
+ 800024c:	4b06      	ldr	r3, [pc, #24]	; (8000268 <ST_PS_Reading+0x40>)
+ 800024e:	4a07      	ldr	r2, [pc, #28]	; (800026c <ST_PS_Reading+0x44>)
+ 8000250:	601a      	str	r2, [r3, #0]
+
+}
+ 8000252:	bf00      	nop
+ 8000254:	bd80      	pop	{r7, pc}
+ 8000256:	bf00      	nop
+ 8000258:	20000043 	.word	0x20000043
+ 800025c:	20000020 	.word	0x20000020
+ 8000260:	20000024 	.word	0x20000024
+ 8000264:	000186a0 	.word	0x000186a0
+ 8000268:	20000038 	.word	0x20000038
+ 800026c:	08000271 	.word	0x08000271
+
+08000270 <ST_PS_Waiting>:
+STATE_define(PS_Waiting)
+{
+ 8000270:	b580      	push	{r7, lr}
+ 8000272:	af00      	add	r7, sp, #0
+    //state name
+    PS_state_id = PS_Waiting;
+ 8000274:	4b07      	ldr	r3, [pc, #28]	; (8000294 <ST_PS_Waiting+0x24>)
+ 8000276:	2201      	movs	r2, #1
+ 8000278:	701a      	strb	r2, [r3, #0]
+    //ACTION
+    Delay(pull_timer);
+ 800027a:	4b07      	ldr	r3, [pc, #28]	; (8000298 <ST_PS_Waiting+0x28>)
+ 800027c:	681b      	ldr	r3, [r3, #0]
+ 800027e:	4618      	mov	r0, r3
+ 8000280:	f000 f876 	bl	8000370 <Delay>
+    pull_timer = 0;
+ 8000284:	4b04      	ldr	r3, [pc, #16]	; (8000298 <ST_PS_Waiting+0x28>)
+ 8000286:	2200      	movs	r2, #0
+ 8000288:	601a      	str	r2, [r3, #0]
+    ps_state = STATE(PS_Reading);
+ 800028a:	4b04      	ldr	r3, [pc, #16]	; (800029c <ST_PS_Waiting+0x2c>)
+ 800028c:	4a04      	ldr	r2, [pc, #16]	; (80002a0 <ST_PS_Waiting+0x30>)
+ 800028e:	601a      	str	r2, [r3, #0]
+
+}
+ 8000290:	bf00      	nop
+ 8000292:	bd80      	pop	{r7, pc}
+ 8000294:	20000043 	.word	0x20000043
+ 8000298:	20000024 	.word	0x20000024
+ 800029c:	20000038 	.word	0x20000038
+ 80002a0:	08000229 	.word	0x08000229
+
+080002a4 <High_pressure_detected>:
+//define pointer to function
+void (*AM_state)();
+
+
+void High_pressure_detected()
+{
+ 80002a4:	b480      	push	{r7}
+ 80002a6:	af00      	add	r7, sp, #0
+    AM_state = STATE(AM_alarm_on);
+ 80002a8:	4b03      	ldr	r3, [pc, #12]	; (80002b8 <High_pressure_detected+0x14>)
+ 80002aa:	4a04      	ldr	r2, [pc, #16]	; (80002bc <High_pressure_detected+0x18>)
+ 80002ac:	601a      	str	r2, [r3, #0]
+}
+ 80002ae:	bf00      	nop
+ 80002b0:	46bd      	mov	sp, r7
+ 80002b2:	bc80      	pop	{r7}
+ 80002b4:	4770      	bx	lr
+ 80002b6:	bf00      	nop
+ 80002b8:	2000003c 	.word	0x2000003c
+ 80002bc:	080002f1 	.word	0x080002f1
+
+080002c0 <ST_AM_alarm_off>:
+//define states function
+STATE_define(AM_alarm_off)
+{
+ 80002c0:	b580      	push	{r7, lr}
+ 80002c2:	af00      	add	r7, sp, #0
+    //state name
+    AM_state_id = AM_alarm_off;
+ 80002c4:	4b06      	ldr	r3, [pc, #24]	; (80002e0 <ST_AM_alarm_off+0x20>)
+ 80002c6:	2200      	movs	r2, #0
+ 80002c8:	701a      	strb	r2, [r3, #0]
+    //STATE ACTION
+    alarm_flag = 0;
+ 80002ca:	4b06      	ldr	r3, [pc, #24]	; (80002e4 <ST_AM_alarm_off+0x24>)
+ 80002cc:	2200      	movs	r2, #0
+ 80002ce:	601a      	str	r2, [r3, #0]
+    stop_alarm();
+ 80002d0:	f7ff ff5b 	bl	800018a <stop_alarm>
+    AM_state = STATE(AM_alarm_off);
+ 80002d4:	4b04      	ldr	r3, [pc, #16]	; (80002e8 <ST_AM_alarm_off+0x28>)
+ 80002d6:	4a05      	ldr	r2, [pc, #20]	; (80002ec <ST_AM_alarm_off+0x2c>)
+ 80002d8:	601a      	str	r2, [r3, #0]
+
+}
+ 80002da:	bf00      	nop
+ 80002dc:	bd80      	pop	{r7, pc}
+ 80002de:	bf00      	nop
+ 80002e0:	20000041 	.word	0x20000041
+ 80002e4:	2000002c 	.word	0x2000002c
+ 80002e8:	2000003c 	.word	0x2000003c
+ 80002ec:	080002c1 	.word	0x080002c1
+
+080002f0 <ST_AM_alarm_on>:
+STATE_define(AM_alarm_on)
+{
+ 80002f0:	b580      	push	{r7, lr}
+ 80002f2:	af00      	add	r7, sp, #0
+    //state name
+    AM_state_id = AM_alarm_on;
+ 80002f4:	4b09      	ldr	r3, [pc, #36]	; (800031c <ST_AM_alarm_on+0x2c>)
+ 80002f6:	2201      	movs	r2, #1
+ 80002f8:	701a      	strb	r2, [r3, #0]
+    //STATE ACTION
+    alarm_flag = 1;
+ 80002fa:	4b09      	ldr	r3, [pc, #36]	; (8000320 <ST_AM_alarm_on+0x30>)
+ 80002fc:	2201      	movs	r2, #1
+ 80002fe:	601a      	str	r2, [r3, #0]
+    start_alarm();
+ 8000300:	f7ff ff3c 	bl	800017c <start_alarm>
+    alarm_timer = 60000;
+ 8000304:	4b07      	ldr	r3, [pc, #28]	; (8000324 <ST_AM_alarm_on+0x34>)
+ 8000306:	f64e 2260 	movw	r2, #60000	; 0xea60
+ 800030a:	601a      	str	r2, [r3, #0]
+    AM_state = STATE(AM_waiting);
+ 800030c:	4b06      	ldr	r3, [pc, #24]	; (8000328 <ST_AM_alarm_on+0x38>)
+ 800030e:	4a07      	ldr	r2, [pc, #28]	; (800032c <ST_AM_alarm_on+0x3c>)
+ 8000310:	601a      	str	r2, [r3, #0]
+    AM_state();
+ 8000312:	4b05      	ldr	r3, [pc, #20]	; (8000328 <ST_AM_alarm_on+0x38>)
+ 8000314:	681b      	ldr	r3, [r3, #0]
+ 8000316:	4798      	blx	r3
+}
+ 8000318:	bf00      	nop
+ 800031a:	bd80      	pop	{r7, pc}
+ 800031c:	20000041 	.word	0x20000041
+ 8000320:	2000002c 	.word	0x2000002c
+ 8000324:	20000028 	.word	0x20000028
+ 8000328:	2000003c 	.word	0x2000003c
+ 800032c:	08000331 	.word	0x08000331
+
+08000330 <ST_AM_waiting>:
+STATE_define(AM_waiting)
+{
+ 8000330:	b580      	push	{r7, lr}
+ 8000332:	af00      	add	r7, sp, #0
+    //state name
+    AM_state_id = AM_waiting;
+ 8000334:	4b0a      	ldr	r3, [pc, #40]	; (8000360 <ST_AM_waiting+0x30>)
+ 8000336:	2202      	movs	r2, #2
+ 8000338:	701a      	strb	r2, [r3, #0]
+    //STATE ACTION
+    Delay(alarm_timer);
+ 800033a:	4b0a      	ldr	r3, [pc, #40]	; (8000364 <ST_AM_waiting+0x34>)
+ 800033c:	681b      	ldr	r3, [r3, #0]
+ 800033e:	4618      	mov	r0, r3
+ 8000340:	f000 f816 	bl	8000370 <Delay>
+    alarm_timer =0;
+ 8000344:	4b07      	ldr	r3, [pc, #28]	; (8000364 <ST_AM_waiting+0x34>)
+ 8000346:	2200      	movs	r2, #0
+ 8000348:	601a      	str	r2, [r3, #0]
+    stop_alarm();
+ 800034a:	f7ff ff1e 	bl	800018a <stop_alarm>
+    AM_state = STATE(AM_alarm_off);
+ 800034e:	4b06      	ldr	r3, [pc, #24]	; (8000368 <ST_AM_waiting+0x38>)
+ 8000350:	4a06      	ldr	r2, [pc, #24]	; (800036c <ST_AM_waiting+0x3c>)
+ 8000352:	601a      	str	r2, [r3, #0]
+    AM_state();
+ 8000354:	4b04      	ldr	r3, [pc, #16]	; (8000368 <ST_AM_waiting+0x38>)
+ 8000356:	681b      	ldr	r3, [r3, #0]
+ 8000358:	4798      	blx	r3
+}
+ 800035a:	bf00      	nop
+ 800035c:	bd80      	pop	{r7, pc}
+ 800035e:	bf00      	nop
+ 8000360:	20000041 	.word	0x20000041
+ 8000364:	20000028 	.word	0x20000028
+ 8000368:	2000003c 	.word	0x2000003c
+ 800036c:	080002c1 	.word	0x080002c1
+
+08000370 <Delay>:
+#include "driver.h"
+#include <stdint.h>
+#include <stdio.h>
+void Delay(int nCount)
+{
+ 8000370:	b480      	push	{r7}
+ 8000372:	b083      	sub	sp, #12
+ 8000374:	af00      	add	r7, sp, #0
+ 8000376:	6078      	str	r0, [r7, #4]
+	for(; nCount != 0; nCount--);
+ 8000378:	e002      	b.n	8000380 <Delay+0x10>
+ 800037a:	687b      	ldr	r3, [r7, #4]
+ 800037c:	3b01      	subs	r3, #1
+ 800037e:	607b      	str	r3, [r7, #4]
+ 8000380:	687b      	ldr	r3, [r7, #4]
+ 8000382:	2b00      	cmp	r3, #0
+ 8000384:	d1f9      	bne.n	800037a <Delay+0xa>
+}
+ 8000386:	bf00      	nop
+ 8000388:	370c      	adds	r7, #12
+ 800038a:	46bd      	mov	sp, r7
+ 800038c:	bc80      	pop	{r7}
+ 800038e:	4770      	bx	lr
+
+08000390 <getPressureVal>:
+
+int getPressureVal(){
+ 8000390:	b480      	push	{r7}
+ 8000392:	af00      	add	r7, sp, #0
+	return (GPIOA_IDR & 0xFF);
+ 8000394:	4b03      	ldr	r3, [pc, #12]	; (80003a4 <getPressureVal+0x14>)
+ 8000396:	681b      	ldr	r3, [r3, #0]
+ 8000398:	b2db      	uxtb	r3, r3
+}
+ 800039a:	4618      	mov	r0, r3
+ 800039c:	46bd      	mov	sp, r7
+ 800039e:	bc80      	pop	{r7}
+ 80003a0:	4770      	bx	lr
+ 80003a2:	bf00      	nop
+ 80003a4:	40010808 	.word	0x40010808
+
+080003a8 <Set_Alarm_actuator>:
+
+void Set_Alarm_actuator(int i){
+ 80003a8:	b480      	push	{r7}
+ 80003aa:	b083      	sub	sp, #12
+ 80003ac:	af00      	add	r7, sp, #0
+ 80003ae:	6078      	str	r0, [r7, #4]
+	if (i == 1){
+ 80003b0:	687b      	ldr	r3, [r7, #4]
+ 80003b2:	2b01      	cmp	r3, #1
+ 80003b4:	d106      	bne.n	80003c4 <Set_Alarm_actuator+0x1c>
+		SET_BIT(GPIOA_ODR,13);
+ 80003b6:	4b0a      	ldr	r3, [pc, #40]	; (80003e0 <Set_Alarm_actuator+0x38>)
+ 80003b8:	681b      	ldr	r3, [r3, #0]
+ 80003ba:	4a09      	ldr	r2, [pc, #36]	; (80003e0 <Set_Alarm_actuator+0x38>)
+ 80003bc:	f443 5300 	orr.w	r3, r3, #8192	; 0x2000
+ 80003c0:	6013      	str	r3, [r2, #0]
+	}
+	else if (i == 0){
+		RESET_BIT(GPIOA_ODR,13);
+	}
+}
+ 80003c2:	e008      	b.n	80003d6 <Set_Alarm_actuator+0x2e>
+	else if (i == 0){
+ 80003c4:	687b      	ldr	r3, [r7, #4]
+ 80003c6:	2b00      	cmp	r3, #0
+ 80003c8:	d105      	bne.n	80003d6 <Set_Alarm_actuator+0x2e>
+		RESET_BIT(GPIOA_ODR,13);
+ 80003ca:	4b05      	ldr	r3, [pc, #20]	; (80003e0 <Set_Alarm_actuator+0x38>)
+ 80003cc:	681b      	ldr	r3, [r3, #0]
+ 80003ce:	4a04      	ldr	r2, [pc, #16]	; (80003e0 <Set_Alarm_actuator+0x38>)
+ 80003d0:	f423 5300 	bic.w	r3, r3, #8192	; 0x2000
+ 80003d4:	6013      	str	r3, [r2, #0]
+}
+ 80003d6:	bf00      	nop
+ 80003d8:	370c      	adds	r7, #12
+ 80003da:	46bd      	mov	sp, r7
+ 80003dc:	bc80      	pop	{r7}
+ 80003de:	4770      	bx	lr
+ 80003e0:	4001080c 	.word	0x4001080c
+
+080003e4 <GPIO_INITIALIZATION>:
+
+void GPIO_INITIALIZATION (){
+ 80003e4:	b480      	push	{r7}
+ 80003e6:	af00      	add	r7, sp, #0
+	SET_BIT(APB2ENR, 2);
+ 80003e8:	4b0f      	ldr	r3, [pc, #60]	; (8000428 <GPIO_INITIALIZATION+0x44>)
+ 80003ea:	681b      	ldr	r3, [r3, #0]
+ 80003ec:	4a0e      	ldr	r2, [pc, #56]	; (8000428 <GPIO_INITIALIZATION+0x44>)
+ 80003ee:	f043 0304 	orr.w	r3, r3, #4
+ 80003f2:	6013      	str	r3, [r2, #0]
+	GPIOA_CRL &= 0xFF0FFFFF;
+ 80003f4:	4b0d      	ldr	r3, [pc, #52]	; (800042c <GPIO_INITIALIZATION+0x48>)
+ 80003f6:	681b      	ldr	r3, [r3, #0]
+ 80003f8:	4a0c      	ldr	r2, [pc, #48]	; (800042c <GPIO_INITIALIZATION+0x48>)
+ 80003fa:	f423 0370 	bic.w	r3, r3, #15728640	; 0xf00000
+ 80003fe:	6013      	str	r3, [r2, #0]
+	GPIOA_CRL |= 0x00000000;
+ 8000400:	4b0a      	ldr	r3, [pc, #40]	; (800042c <GPIO_INITIALIZATION+0x48>)
+ 8000402:	4a0a      	ldr	r2, [pc, #40]	; (800042c <GPIO_INITIALIZATION+0x48>)
+ 8000404:	681b      	ldr	r3, [r3, #0]
+ 8000406:	6013      	str	r3, [r2, #0]
+	GPIOA_CRH &= 0xFF0FFFFF;
+ 8000408:	4b09      	ldr	r3, [pc, #36]	; (8000430 <GPIO_INITIALIZATION+0x4c>)
+ 800040a:	681b      	ldr	r3, [r3, #0]
+ 800040c:	4a08      	ldr	r2, [pc, #32]	; (8000430 <GPIO_INITIALIZATION+0x4c>)
+ 800040e:	f423 0370 	bic.w	r3, r3, #15728640	; 0xf00000
+ 8000412:	6013      	str	r3, [r2, #0]
+	GPIOA_CRH |= 0x22222222;
+ 8000414:	4b06      	ldr	r3, [pc, #24]	; (8000430 <GPIO_INITIALIZATION+0x4c>)
+ 8000416:	681b      	ldr	r3, [r3, #0]
+ 8000418:	4a05      	ldr	r2, [pc, #20]	; (8000430 <GPIO_INITIALIZATION+0x4c>)
+ 800041a:	f043 3322 	orr.w	r3, r3, #572662306	; 0x22222222
+ 800041e:	6013      	str	r3, [r2, #0]
+}
+ 8000420:	bf00      	nop
+ 8000422:	46bd      	mov	sp, r7
+ 8000424:	bc80      	pop	{r7}
+ 8000426:	4770      	bx	lr
+ 8000428:	40021018 	.word	0x40021018
+ 800042c:	40010800 	.word	0x40010800
+ 8000430:	40010804 	.word	0x40010804
+
+08000434 <setup>:
+mainALG_States mainALG_state_id;
+AM_states AM_state_id;
+AC_states AC_state_id;
+
+void setup()
+{
+ 8000434:	b580      	push	{r7, lr}
+ 8000436:	af00      	add	r7, sp, #0
+	init_AC();
+ 8000438:	f7ff fe9a 	bl	8000170 <init_AC>
+	PS_init();
+ 800043c:	f7ff feee 	bl	800021c <PS_init>
+	AM_state = STATE(AM_alarm_off);
+ 8000440:	4b07      	ldr	r3, [pc, #28]	; (8000460 <setup+0x2c>)
+ 8000442:	4a08      	ldr	r2, [pc, #32]	; (8000464 <setup+0x30>)
+ 8000444:	601a      	str	r2, [r3, #0]
+	ps_state= STATE(PS_Reading);
+ 8000446:	4b08      	ldr	r3, [pc, #32]	; (8000468 <setup+0x34>)
+ 8000448:	4a08      	ldr	r2, [pc, #32]	; (800046c <setup+0x38>)
+ 800044a:	601a      	str	r2, [r3, #0]
+	mainALG_state = STATE(mainALG_HP_detected);
+ 800044c:	4b08      	ldr	r3, [pc, #32]	; (8000470 <setup+0x3c>)
+ 800044e:	4a09      	ldr	r2, [pc, #36]	; (8000474 <setup+0x40>)
+ 8000450:	601a      	str	r2, [r3, #0]
+	stop_alarm();
+ 8000452:	f7ff fe9a 	bl	800018a <stop_alarm>
+	AC_state = STATE(AC_waiting);
+ 8000456:	4b08      	ldr	r3, [pc, #32]	; (8000478 <setup+0x44>)
+ 8000458:	4a08      	ldr	r2, [pc, #32]	; (800047c <setup+0x48>)
+ 800045a:	601a      	str	r2, [r3, #0]
+}
+ 800045c:	bf00      	nop
+ 800045e:	bd80      	pop	{r7, pc}
+ 8000460:	2000003c 	.word	0x2000003c
+ 8000464:	080002c1 	.word	0x080002c1
+ 8000468:	20000038 	.word	0x20000038
+ 800046c:	08000229 	.word	0x08000229
+ 8000470:	20000044 	.word	0x20000044
+ 8000474:	080004d1 	.word	0x080004d1
+ 8000478:	20000034 	.word	0x20000034
+ 800047c:	08000199 	.word	0x08000199
+
+08000480 <main>:
+
+int main ()
+{
+ 8000480:	b580      	push	{r7, lr}
+ 8000482:	af00      	add	r7, sp, #0
+//	GPIO_INITIALIZATION();
+	setup();
+ 8000484:	f7ff ffd6 	bl	8000434 <setup>
+	while (1)
+	{
+		ps_state();
+ 8000488:	4b06      	ldr	r3, [pc, #24]	; (80004a4 <main+0x24>)
+ 800048a:	681b      	ldr	r3, [r3, #0]
+ 800048c:	4798      	blx	r3
+		mainALG_state();
+ 800048e:	4b06      	ldr	r3, [pc, #24]	; (80004a8 <main+0x28>)
+ 8000490:	681b      	ldr	r3, [r3, #0]
+ 8000492:	4798      	blx	r3
+		AM_state();
+ 8000494:	4b05      	ldr	r3, [pc, #20]	; (80004ac <main+0x2c>)
+ 8000496:	681b      	ldr	r3, [r3, #0]
+ 8000498:	4798      	blx	r3
+        AC_state();
+ 800049a:	4b05      	ldr	r3, [pc, #20]	; (80004b0 <main+0x30>)
+ 800049c:	681b      	ldr	r3, [r3, #0]
+ 800049e:	4798      	blx	r3
+		ps_state();
+ 80004a0:	e7f2      	b.n	8000488 <main+0x8>
+ 80004a2:	bf00      	nop
+ 80004a4:	20000038 	.word	0x20000038
+ 80004a8:	20000044 	.word	0x20000044
+ 80004ac:	2000003c 	.word	0x2000003c
+ 80004b0:	20000034 	.word	0x20000034
+
+080004b4 <setPressureVal>:
+
+//state pointer to function
+void(*mainALG_state)();
+
+void setPressureVal(int Pval)
+{
+ 80004b4:	b480      	push	{r7}
+ 80004b6:	b083      	sub	sp, #12
+ 80004b8:	af00      	add	r7, sp, #0
+ 80004ba:	6078      	str	r0, [r7, #4]
+	get_Pval = Pval;
+ 80004bc:	4a03      	ldr	r2, [pc, #12]	; (80004cc <setPressureVal+0x18>)
+ 80004be:	687b      	ldr	r3, [r7, #4]
+ 80004c0:	6013      	str	r3, [r2, #0]
+}
+ 80004c2:	bf00      	nop
+ 80004c4:	370c      	adds	r7, #12
+ 80004c6:	46bd      	mov	sp, r7
+ 80004c8:	bc80      	pop	{r7}
+ 80004ca:	4770      	bx	lr
+ 80004cc:	20000030 	.word	0x20000030
+
+080004d0 <ST_mainALG_HP_detected>:
+
+//states function
+STATE_define (mainALG_HP_detected)
+{
+ 80004d0:	b580      	push	{r7, lr}
+ 80004d2:	af00      	add	r7, sp, #0
+    //state name
+    mainALG_state_id = higher_pressure_detected;
+ 80004d4:	4b07      	ldr	r3, [pc, #28]	; (80004f4 <ST_mainALG_HP_detected+0x24>)
+ 80004d6:	2200      	movs	r2, #0
+ 80004d8:	701a      	strb	r2, [r3, #0]
+    //state action
+    if(get_Pval>threshold)
+ 80004da:	4b07      	ldr	r3, [pc, #28]	; (80004f8 <ST_mainALG_HP_detected+0x28>)
+ 80004dc:	681a      	ldr	r2, [r3, #0]
+ 80004de:	4b07      	ldr	r3, [pc, #28]	; (80004fc <ST_mainALG_HP_detected+0x2c>)
+ 80004e0:	681b      	ldr	r3, [r3, #0]
+ 80004e2:	429a      	cmp	r2, r3
+ 80004e4:	dd01      	ble.n	80004ea <ST_mainALG_HP_detected+0x1a>
+    {
+    	High_pressure_detected();
+ 80004e6:	f7ff fedd 	bl	80002a4 <High_pressure_detected>
+    }
+    //else
+       //No high pressure detected
+    mainALG_state = STATE(mainALG_HP_detected);
+ 80004ea:	4b05      	ldr	r3, [pc, #20]	; (8000500 <ST_mainALG_HP_detected+0x30>)
+ 80004ec:	4a05      	ldr	r2, [pc, #20]	; (8000504 <ST_mainALG_HP_detected+0x34>)
+ 80004ee:	601a      	str	r2, [r3, #0]
+}
+ 80004f0:	bf00      	nop
+ 80004f2:	bd80      	pop	{r7, pc}
+ 80004f4:	20000042 	.word	0x20000042
+ 80004f8:	20000030 	.word	0x20000030
+ 80004fc:	20000000 	.word	0x20000000
+ 8000500:	20000044 	.word	0x20000044
+ 8000504:	080004d1 	.word	0x080004d1
+
+08000508 <Reset_Handler>:
+
+  .section .text.Reset_Handler
+  .weak Reset_Handler
+  .type Reset_Handler, %function
+Reset_Handler:
+  ldr   r0, =_estack
+ 8000508:	480d      	ldr	r0, [pc, #52]	; (8000540 <LoopForever+0x2>)
+  mov   sp, r0          /* set stack pointer */
+ 800050a:	4685      	mov	sp, r0
+/* Call the clock system intitialization function.*/
+  bl  SystemInit
+ 800050c:	f3af 8000 	nop.w
+
+/* Copy the data segment initializers from flash to SRAM */
+  ldr r0, =_sdata
+ 8000510:	480c      	ldr	r0, [pc, #48]	; (8000544 <LoopForever+0x6>)
+  ldr r1, =_edata
+ 8000512:	490d      	ldr	r1, [pc, #52]	; (8000548 <LoopForever+0xa>)
+  ldr r2, =_sidata
+ 8000514:	4a0d      	ldr	r2, [pc, #52]	; (800054c <LoopForever+0xe>)
+  movs r3, #0
+ 8000516:	2300      	movs	r3, #0
+  b LoopCopyDataInit
+ 8000518:	e002      	b.n	8000520 <LoopCopyDataInit>
+
+0800051a <CopyDataInit>:
+
+CopyDataInit:
+  ldr r4, [r2, r3]
+ 800051a:	58d4      	ldr	r4, [r2, r3]
+  str r4, [r0, r3]
+ 800051c:	50c4      	str	r4, [r0, r3]
+  adds r3, r3, #4
+ 800051e:	3304      	adds	r3, #4
+
+08000520 <LoopCopyDataInit>:
+
+LoopCopyDataInit:
+  adds r4, r0, r3
+ 8000520:	18c4      	adds	r4, r0, r3
+  cmp r4, r1
+ 8000522:	428c      	cmp	r4, r1
+  bcc CopyDataInit
+ 8000524:	d3f9      	bcc.n	800051a <CopyDataInit>
+
+/* Zero fill the bss segment. */
+  ldr r2, =_sbss
+ 8000526:	4a0a      	ldr	r2, [pc, #40]	; (8000550 <LoopForever+0x12>)
+  ldr r4, =_ebss
+ 8000528:	4c0a      	ldr	r4, [pc, #40]	; (8000554 <LoopForever+0x16>)
+  movs r3, #0
+ 800052a:	2300      	movs	r3, #0
+  b LoopFillZerobss
+ 800052c:	e001      	b.n	8000532 <LoopFillZerobss>
+
+0800052e <FillZerobss>:
+
+FillZerobss:
+  str  r3, [r2]
+ 800052e:	6013      	str	r3, [r2, #0]
+  adds r2, r2, #4
+ 8000530:	3204      	adds	r2, #4
+
+08000532 <LoopFillZerobss>:
+
+LoopFillZerobss:
+  cmp r2, r4
+ 8000532:	42a2      	cmp	r2, r4
+  bcc FillZerobss
+ 8000534:	d3fb      	bcc.n	800052e <FillZerobss>
+
+/* Call static constructors */
+  bl __libc_init_array
+ 8000536:	f000 f811 	bl	800055c <__libc_init_array>
+/* Call the application's entry point.*/
+  bl main
+ 800053a:	f7ff ffa1 	bl	8000480 <main>
+
+0800053e <LoopForever>:
+
+LoopForever:
+    b LoopForever
+ 800053e:	e7fe      	b.n	800053e <LoopForever>
+  ldr   r0, =_estack
+ 8000540:	20002800 	.word	0x20002800
+  ldr r0, =_sdata
+ 8000544:	20000000 	.word	0x20000000
+  ldr r1, =_edata
+ 8000548:	20000004 	.word	0x20000004
+  ldr r2, =_sidata
+ 800054c:	080005c4 	.word	0x080005c4
+  ldr r2, =_sbss
+ 8000550:	20000004 	.word	0x20000004
+  ldr r4, =_ebss
+ 8000554:	20000048 	.word	0x20000048
+
+08000558 <ADC1_2_IRQHandler>:
+ * @retval : None
+*/
+  .section .text.Default_Handler,"ax",%progbits
+Default_Handler:
+Infinite_Loop:
+  b Infinite_Loop
+ 8000558:	e7fe      	b.n	8000558 <ADC1_2_IRQHandler>
+	...
+
+0800055c <__libc_init_array>:
+ 800055c:	b570      	push	{r4, r5, r6, lr}
+ 800055e:	2500      	movs	r5, #0
+ 8000560:	4e0c      	ldr	r6, [pc, #48]	; (8000594 <__libc_init_array+0x38>)
+ 8000562:	4c0d      	ldr	r4, [pc, #52]	; (8000598 <__libc_init_array+0x3c>)
+ 8000564:	1ba4      	subs	r4, r4, r6
+ 8000566:	10a4      	asrs	r4, r4, #2
+ 8000568:	42a5      	cmp	r5, r4
+ 800056a:	d109      	bne.n	8000580 <__libc_init_array+0x24>
+ 800056c:	f000 f81a 	bl	80005a4 <_init>
+ 8000570:	2500      	movs	r5, #0
+ 8000572:	4e0a      	ldr	r6, [pc, #40]	; (800059c <__libc_init_array+0x40>)
+ 8000574:	4c0a      	ldr	r4, [pc, #40]	; (80005a0 <__libc_init_array+0x44>)
+ 8000576:	1ba4      	subs	r4, r4, r6
+ 8000578:	10a4      	asrs	r4, r4, #2
+ 800057a:	42a5      	cmp	r5, r4
+ 800057c:	d105      	bne.n	800058a <__libc_init_array+0x2e>
+ 800057e:	bd70      	pop	{r4, r5, r6, pc}
+ 8000580:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
+ 8000584:	4798      	blx	r3
+ 8000586:	3501      	adds	r5, #1
+ 8000588:	e7ee      	b.n	8000568 <__libc_init_array+0xc>
+ 800058a:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
+ 800058e:	4798      	blx	r3
+ 8000590:	3501      	adds	r5, #1
+ 8000592:	e7f2      	b.n	800057a <__libc_init_array+0x1e>
+ 8000594:	080005bc 	.word	0x080005bc
+ 8000598:	080005bc 	.word	0x080005bc
+ 800059c:	080005bc 	.word	0x080005bc
+ 80005a0:	080005c0 	.word	0x080005c0
+
+080005a4 <_init>:
+ 80005a4:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80005a6:	bf00      	nop
+ 80005a8:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 80005aa:	bc08      	pop	{r3}
+ 80005ac:	469e      	mov	lr, r3
+ 80005ae:	4770      	bx	lr
+
+080005b0 <_fini>:
+ 80005b0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80005b2:	bf00      	nop
+ 80005b4:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 80005b6:	bc08      	pop	{r3}
+ 80005b8:	469e      	mov	lr, r3
+ 80005ba:	4770      	bx	lr

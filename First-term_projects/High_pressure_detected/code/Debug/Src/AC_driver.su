@@ -1,0 +1,6 @@
+AC_driver.c:17:6:init_AC	8	static
+AC_driver.c:23:6:start_alarm	8	static
+AC_driver.c:28:6:stop_alarm	8	static
+AC_driver.c:34:1:ST_AC_waiting	8	static
+AC_driver.c:48:1:ST_AC_alarm_off	4	static
+AC_driver.c:55:1:ST_AC_alarm_on	4	static
