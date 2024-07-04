@@ -1,0 +1,80 @@
+/*
+ * stm32_f103c6_GPIO_driver.c
+ *
+ *  Created on: Jun 13, 2024
+ *      Author: tasneem rizk
+ */
+
+
+
+#include "stm32_f103c6_EXTI_driver.h"
+
+
+
+/*
+ * ================================================================
+ *                       Generic Macros
+ * ================================================================
+ */
+
+
+
+
+/*
+ * ================================================================
+ *                       Generic Functions
+ * ================================================================
+ */
+
+
+
+
+
+
+
+/*
+ * ================================================================
+ *                      APIS Functions Definition
+ * ================================================================
+ */
+
+/**================================================================
+ * @Fn            -MCAL_GPIO_DeInit
+ * @brief         -reset all GPIOx registers.
+ * @param [in]    -GPIOx: where x can be (A..E (depending on device used) to select the GPIO peripheral.
+ * @retval        -none
+ * Note           -none
+ */
+void MCAL_EXTI_GPIO_DeInit(EXTI_PinConfig_t* EXT_Config)
+{
+
+}
+
+/**================================================================
+ * @Fn            -MCAL_GPIO_DeInit
+ * @brief         -reset all GPIOx registers.
+ * @param [in]    -GPIOx: where x can be (A..E (depending on device used) to select the GPIO peripheral.
+ * @retval        -none
+ * Note           -none
+ */
+void MCAL_EXTI_GPIO_Init(void)
+{
+
+}
+
+/**================================================================
+ * @Fn            -MCAL_GPIO_DeInit
+ * @brief         -reset all GPIOx registers.
+ * @param [in]    -GPIOx: where x can be (A..E (depending on device used) to select the GPIO peripheral.
+ * @retval        -none
+ * Note           -none
+ */
+void MCAL_EXTI_GPIO_Update(EXTI_PinConfig_t* EXT_Config)
+{
+
+}
+
+
+
+
+

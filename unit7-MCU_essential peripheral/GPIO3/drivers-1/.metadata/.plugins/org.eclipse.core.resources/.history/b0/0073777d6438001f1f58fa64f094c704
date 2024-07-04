@@ -1,0 +1,14 @@
+Stm32_F103C6_Drivers/KEYPAD_DRIVER/keypad.o: \
+ ../Stm32_F103C6_Drivers/KEYPAD_DRIVER/keypad.c \
+ ../Stm32_F103C6_Drivers/KEYPAD_DRIVER/keypad.h \
+ D:/full_diploma/ES_Online_Diploma_KS/second-term/unit7/MCU\ essential\ peripheral/lesson3/section3/Drivers\ updated/Drivers/Drivers/Stm32_F103C6_Drivers/inc/stm32f103x6.h \
+ D:/full_diploma/ES_Online_Diploma_KS/second-term/unit7/MCU\ essential\ peripheral/lesson3/section3/Drivers\ updated/Drivers/Drivers/Stm32_F103C6_Drivers/inc/Stm32_F103C6_gpio_driver.h \
+ D:/full_diploma/ES_Online_Diploma_KS/second-term/unit7/MCU\ essential\ peripheral/lesson3/section3/Drivers\ updated/Drivers/Drivers/Stm32_F103C6_Drivers/inc/stm32f103x6.h
+
+../Stm32_F103C6_Drivers/KEYPAD_DRIVER/keypad.h:
+
+D:/full_diploma/ES_Online_Diploma_KS/second-term/unit7/MCU\ essential\ peripheral/lesson3/section3/Drivers\ updated/Drivers/Drivers/Stm32_F103C6_Drivers/inc/stm32f103x6.h:
+
+D:/full_diploma/ES_Online_Diploma_KS/second-term/unit7/MCU\ essential\ peripheral/lesson3/section3/Drivers\ updated/Drivers/Drivers/Stm32_F103C6_Drivers/inc/Stm32_F103C6_gpio_driver.h:
+
+D:/full_diploma/ES_Online_Diploma_KS/second-term/unit7/MCU\ essential\ peripheral/lesson3/section3/Drivers\ updated/Drivers/Drivers/Stm32_F103C6_Drivers/inc/stm32f103x6.h:

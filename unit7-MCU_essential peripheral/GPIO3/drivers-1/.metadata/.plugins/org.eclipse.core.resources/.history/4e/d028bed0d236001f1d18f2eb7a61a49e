@@ -1,0 +1,14 @@
+stm32_f103c6_drivers/LCD_DRIVER/lcd.o: \
+ ../stm32_f103c6_drivers/LCD_DRIVER/lcd.c \
+ ../stm32_f103c6_drivers/LCD_DRIVER/lcd.h \
+ D:/full_diploma/ES_Online_Diploma_KS/second-term/unit7/MCU\ essential\ peripheral/drivers/Drivers/stm32_f103c6_drivers/inc/stm32_f103x6.h \
+ D:/full_diploma/ES_Online_Diploma_KS/second-term/unit7/MCU\ essential\ peripheral/drivers/Drivers/stm32_f103c6_drivers/inc/stm32_f103c6_GPIO_driver.h \
+ D:/full_diploma/ES_Online_Diploma_KS/second-term/unit7/MCU\ essential\ peripheral/drivers/Drivers/stm32_f103c6_drivers/inc/stm32_f103x6.h
+
+../stm32_f103c6_drivers/LCD_DRIVER/lcd.h:
+
+D:/full_diploma/ES_Online_Diploma_KS/second-term/unit7/MCU\ essential\ peripheral/drivers/Drivers/stm32_f103c6_drivers/inc/stm32_f103x6.h:
+
+D:/full_diploma/ES_Online_Diploma_KS/second-term/unit7/MCU\ essential\ peripheral/drivers/Drivers/stm32_f103c6_drivers/inc/stm32_f103c6_GPIO_driver.h:
+
+D:/full_diploma/ES_Online_Diploma_KS/second-term/unit7/MCU\ essential\ peripheral/drivers/Drivers/stm32_f103c6_drivers/inc/stm32_f103x6.h:

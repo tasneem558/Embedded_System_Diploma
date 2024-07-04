@@ -1,0 +1,5 @@
+1719912592821	Move 'KEYPAD_DRIVER' to 'HAL'
+1719912602736	Move 'LCD_DRIVER' to 'HAL'
+1720037429587	Rename resource 'stm32_f103c6_EXTI_driver.c'
+1720037439980	Rename resource 'stm32_f103c6_GPIO_driver.c'
+1720037448778	Rename resource 'stm32_f103c6_GPIO1_driver.c'

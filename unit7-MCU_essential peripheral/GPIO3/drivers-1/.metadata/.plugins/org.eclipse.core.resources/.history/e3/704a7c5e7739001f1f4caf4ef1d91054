@@ -1,0 +1,36 @@
+/*
+ * stm32_f103c6_EXTI_driver.h
+ *
+ *  Created on: Jun 13, 2024
+ *      Author: tasneem
+ */
+
+#ifndef INC_STM32_F103C6_EXTI_DRIVER_H_
+#define INC_STM32_F103C6_EXTI_DRIVER_H_
+
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+//includes
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+#include "stm32_f103x6.h"
+
+
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+//user type definitions
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+//macros configuration reference
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+
+
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+//APIs supported by "MCAL GPIO DRIVER"
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+
+
+
+
+#endif /* INC_STM32_F103C6_EXTI_DRIVER_H_ */
